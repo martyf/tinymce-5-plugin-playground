@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <script src='http://cloud.tinymce.com/5-testing/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+
+            plugins: 'helloworld help',
+            external_plugins: {
+                'helloworld': '/plugins/helloworld/plugin.min.js',
+            },
+
+            menubar: 'insert help',
+            menu: {
+                insert: {title: 'Insert', items: 'helloworld'},
+            },
+
+            toolbar: 'helloworld | help',
+        });
+    </script>
+</head>
+
+<body>
+<h1>TinyMCE 5 Example Plugin</h1>
+<p>You can read about the development of this example plugin at
+    <a href="https://www.martyfriedel.com/blog/tinymce-5-creating-a-plugin-with-a-dialog-and-custom-icons" target="_blank">my website</a>.
+</p>
+<form method="post">
+    <textarea id="mytextarea">Hello, World!</textarea>
+</form>
+<p>TinyMCE is made by
+    <a href="https://www.tiny.cloud/" target="_blank">Tiny</a>. This example is using the cloud-hosted testing version,
+    and you will get an API Key warning. When TinyMCE 5 is released, I'll update this project to include a package.json
+    to include version 5.
+</p>
+<p>SVG path data from
+    <a href="https://icomoon.io/#icons-icomoon" target="_blank">Icomoon's Free library</a>
+    (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0)</a>
+</p>
+</body>
+</html>
