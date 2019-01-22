@@ -3,7 +3,9 @@ Developed by [Marty Friedel](https://www.martyfriedel.com)
 
 Last updated January 2019
 
-Tested with TinyMCE 5 RC1 (5.0.0-rc-1-build.3)
+Tested with:
+- TinyMCE 5 RC1 (5.0.0-rc-1-build.3)
+- TinyMCE 5 RC2 (5.0.0-rc-2-build.2-8)
 
 ## How to use
 Open **index.html** in a web browser and you're good to go. 
@@ -12,7 +14,10 @@ You will get an API Key warning given you'll be running it from Tiny's cloud cod
 you are going to get serious with development, either register with Tiny for continued cloud use, or include TinyMCE in 
 your project.
 
-This will be updated when TinyMCE 5 is released to include a package.json file to run it locally.
+Alternatively, you can build your own TinyMCE 5 RC build from the [TinyMCE 5.x branch](https://github.com/tinymce/tinymce/tree/5.x),
+and host the files locally yourself.
+
+This will be updated when TinyMCE 5 is released to include a package.json file to run it locally from pre-compiled dist code.
 
 ## What is where
 **index.html** includes the HTML needed to get up and running, including the TinyMCE init code.
