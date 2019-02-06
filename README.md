@@ -1,7 +1,7 @@
 # TinyMCE 5 Example Plugin
 Developed by [Marty Friedel](https://www.martyfriedel.com)
 
-Last updated January 2019
+Last updated February 2019
 
 Tested with:
 - TinyMCE 5 RC1 (5.0.0-rc-1-build.3)
