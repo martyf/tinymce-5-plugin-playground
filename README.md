@@ -18,8 +18,8 @@ your project.
 Alternatively, you can build your own TinyMCE 5 build from the [TinyMCE 5.x branch](https://github.com/tinymce/tinymce/tree/5.x),
 and host the files locally yourself.
 
-A package.json file is included for you to quickly get TinyMCE running locally - use your favourite tool to get the files,
-and update the JS file in the index.html file and you'll be good to go.
+A package.json file is included for you to quickly get TinyMCE running locally - use your favourite package manager (such as NPM, Yarn, etc)
+to get the build files, and update the JS file in the index.html file and you'll be good to go.
 
 ## What is where
 **index.html** includes the HTML needed to get up and running, including the TinyMCE init code.
