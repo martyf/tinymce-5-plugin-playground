@@ -2,13 +2,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta charset="UTF-8">
     <script src='https://cloud.tinymce.com/5/tinymce.min.js'></script>
     <script>
         tinymce.init({
             selector: 'textarea',
+            element_format: 'html',
 
-            plugins: 'helloworld help',
+            plugins: 'code help',
             external_plugins: {
+                'flags': '/plugins/flags/plugin.min.js',
                 'helloworld': '/plugins/helloworld/plugin.min.js',
             },
 
@@ -17,26 +20,38 @@
                 insert: {title: 'Insert', items: 'helloworld'},
             },
 
-            toolbar: 'helloworld | help',
+            height: 400,
+
+            toolbar: 'helloworld | code | help',
         });
     </script>
 </head>
 
 <body>
-<h1>TinyMCE 5 Example Plugin</h1>
-<p>You can read about the development of this example plugin at
-    <a href="https://www.martyfriedel.com/blog/tinymce-5-creating-a-plugin-with-a-dialog-and-custom-icons" target="_blank">my website</a>.
-</p>
+<h1>TinyMCE 5 Plugin Playground</h1>
+<p>A working demo to help developers play with working examples of custom external plugins for TinyMCE 5.</p>
+<p>This includes:</p>
+<ul>
+    <li>
+        <strong>Hello World</strong> showing Dialog and Custom Icons (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-a-plugin-with-a-dialog-and-custom-icons" target="_blank">read the blog post</a>)
+    </li>
+    <li>
+        <strong>Flags</strong> demonstrating Autocompleter (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-an-autocomplete-plugin" target="_blank">read the blog post</a>)
+    </li>
+</ul>
+<p>To use the Flags plugin, type the trigger character '#' and start typing a country name - filter options will be shown when at least one character is typed.</p>
+<p>The Flags plugin requires browser support for Fetch - basically modern browsers (sorry, that means you IE users).</p>
 <form method="post">
-    <textarea id="mytextarea">Hello, World!</textarea>
+    <textarea id="mytextarea"></textarea>
 </form>
 <p>TinyMCE is made by
     <a href="https://www.tiny.cloud/" target="_blank">Tiny</a>. This example is using the cloud-hosted testing version,
-    and you will get an API Key warning.</p>
-<p>You can use the included package.json to pull in TinyMCE 5 for local use. Just src of the script tag above to point to your local version.</p>
+    and you will get an API Key warning unless you register for your own API Key.</p>
+<p>You can use the included package.json to pull in TinyMCE 5 for local use. Just update the src of the script tag above to point to your local version.</p>
 <p>SVG path data from
     <a href="https://icomoon.io/#icons-icomoon" target="_blank">Icomoon's Free library</a>
     (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0)</a>
 </p>
+<p>Country and Flag data from <a href="https://restcountries.eu/" target="_blank">REST Countries</a>.</p>
 </body>
 </html>
