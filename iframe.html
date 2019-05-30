@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.10/purify.min.js"></script>
+</head>
+
+<body class="iframe">
+<div class="content">
+    <h1 class="title">Hello, I am the "iframe.html" file.</h1>
+    <p>There are two ways to communicate <em>to</em> TinyMCE:</p>
+    <ol>
+        <li>The Dialog Footer buttons</li>
+        <li>Buttons within the iframe</li>
+    </ol>
+    <p>You can also send messages
+        <em>from</em> TinyMCE back to the iframe too - see the "Get TinyMCE Content" Custom Plugin Command.</p>
+
+    <h2 class="title is-2">Dialog buttons</h2>
+    <p>The buttons on the bottom of the dialog are configured in the plugin itself.</p>
+    <p>You can add as many buttons as you need (or no buttons at all), and the buttons here show that you can have multiple buttons that can do different things on their action.</p>
+    <h2 class="title is-2">iframe buttons</h2>
+    <p>We also want to look at messaging from an external file (me, here) back to TinyMCE. So... what do you want to do?</p>
+    <div class="inner">
+        <h3 class="title is-3">Dialog Messages</h3>
+        <div class="buttons">
+            <button class="button is-primary" id="dialog-block">Block Dialog for 2 second</button>
+            <button class="button is-primary" id="dialog-close">Close Dialog</button>
+        </div>
+        <h3 class="title is-3">Custom Plugin Commands</h3>
+        <form>
+            <div class="field">
+                <label class="label" for="dialog-input">iframe input</label>
+                <div class="control">
+                    <input id="dialog-input" class="input" type="text" placeholder="Enter your text">
+                </div>
+                <p class="help">This is just a simple input field on the iframe. Enter text here for the options below.</p>
+            </div>
+            <div class="buttons">
+                <button class="button is-primary" id="dialog-message-custom">Call plugin's "iframeCommand" Command</button>
+            </div>
+            <div class="field">
+                <div class="label">Get TinyMCE Content</div>
+                <div class="control">
+                    <div id="content-preview" class="content is-small is-hidden"></div>
+                </div>
+                <p class="help">Trigger the button below to get the current content from the TinyMCE instance.</p>
+            </div>
+            <div class="buttons">
+                <button class="button is-primary" id="dialog-message-content">Call plugin's "getTinymceContent" Command</button>
+            </div>
+        </form>
+        <h3 class="title is-3">onMessage messaging</h3>
+        <p>If you don't want to make a command, you can also use the onMessage configuration option for the URL Dialog config.</p>
+        <p>Calling is the same concept, but handling is taken care of in the onMessage option.</p>
+        <form>
+            <div class="field">
+                <label class="label" for="dialog-name">What is your name?</label>
+                <div class="control">
+                    <input id="dialog-name" class="input" type="text" placeholder="Enter your name">
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="button is-primary" id="dialog-message-config">Call onMessage</button>
+            </div>
+        </form>
+
+        <h3 class="title is-3">In-build TinyMCE Commands</h3>
+        <p>The next two are calling built-in TinyMCE commands, and will also trigger a close of the dialog.</p>
+        <div class="buttons">
+            <button class="button is-primary" id="dialog-message-bold">Make all editor content "bold"</button>
+            <button class="button is-primary" id="dialog-message-normal">Remove all formatting from all content</button>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var origin = '*';
+
+    /**
+     * Block the Dialog
+     *
+     * Sends the "block" message to Tiny, and blocks the dialog. 2 seconds later, this handler unblocks the dialog.
+     *
+     * You normally wouldn't use a setTimeout to trigger the unblock - this is just for this example.
+     *
+     * But what if your iframe needs to load new content - maybe it's a file manager and is loading new content. Or
+     * maybe you need to do processing on some elements added within the iframe. These are places where you could call
+     * "block". When the processing is finished, then call "unblock". This prevents users interacting with the dialog
+     * while your processing is taking place.
+     */
+    document.getElementById('dialog-block').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "block" mceAction
+        window.parent.postMessage({
+            mceAction: 'block',
+            message: 'Blocking from iframe'
+        }, origin);
+
+        // wait 2 seconds
+        setTimeout(() => {
+            // send the "unblock" mceAction
+            window.parent.postMessage({
+                mceAction: 'unblock'
+            }, origin);
+        }, 1000);
+    });
+
+
+    /**
+     * Close the Dialog
+     *
+     * The same as clicking the "Close Dialog" button in the footer.
+     *
+     * However, the buttons in the footer are optional. If you want to build the "close" functionality in to your
+     * iframe's interface, you can trigger the dialog close using the "close" mceAction.
+     */
+    document.getElementById('dialog-close').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "close" mceAction
+        window.parent.postMessage({
+            mceAction: 'close'
+        }, origin);
+    });
+
+
+    /**
+     * Make all content bold
+     *
+     * Select all the current content, and make it bold, using two built-in TinyMCE Commands - "selectAll" and "Bold".
+     *
+     * This will also close the dialog using the same "close" technique above.
+     */
+    document.getElementById('dialog-message-bold').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "execCommand" mceAction to call the "selectAll" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'selectAll'
+        }, origin);
+
+        // send the "Bold" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'Bold'
+        }, origin);
+
+        // send the "close" mceAction
+        window.parent.postMessage({
+            mceAction: 'close'
+        }, origin);
+    });
+
+
+    /**
+     * Strip all content formatting
+     *
+     * Select all the current content, and strip the formatting. This also uses two built-in TinyMCE Commands - "selectAll"
+     * and "RemoveFormat".
+     *
+     * This will also close the dialog using the same "close" technique above.
+     */
+    document.getElementById('dialog-message-normal').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "execCommand" mceAction to call the "selectAll" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'selectAll'
+        }, origin);
+
+        // send the "RemoveFormat" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'RemoveFormat'
+        }, origin);
+
+        // send the "close" mceAction
+        window.parent.postMessage({
+            mceAction: 'close'
+        }, origin);
+    });
+
+
+    /**
+     * Send a message to TinyMCE to run a custom command.
+     *
+     * The "iframeCommand" command has been defined in the "iframe" plugin.
+     *
+     * This will take the value of the "iframe input" field, and send it to the custom command handler.
+     */
+    document.getElementById('dialog-message-custom').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "execCommand" mceAction to call the "iframeCommand" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'iframeCommand',
+            value: document.getElementById('dialog-input').value
+        }, origin);
+    });
+
+
+    /**
+     * Send a message to TinyMCE to run a custom command.
+     *
+     * The "getTinyMCEContent" command has been defined in the "iframe" plugin.
+     *
+     * This command will get the current content from the editor, and using TinyMCE's "sendMessage", send it back to this
+     * document. This document is listening for "message" to arrive.
+     */
+    document.getElementById('dialog-message-content').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the "execCommand" mceAction to call the "getTinymceContent" command
+        window.parent.postMessage({
+            mceAction: 'execCommand',
+            cmd: 'getTinymceContent'
+        }, origin);
+    });
+
+
+    /**
+     * Listen for an event "message"
+     *
+     * This will be sent by TinyMCE, and the event variable will include "data", an object of data
+     * that is sent from TinyMCE.
+     *
+     * This object could be whatever you (the developer) wants or needs it to be.
+     */
+    window.addEventListener('message', function (event) {
+
+        /*
+         *
+         * Note:
+         * It is best practice to check event.origin matches where you expect it to come from.
+         * If the event.origin doesn't match what you expect, disregard the message
+         *
+         * Refer to:
+         * https://www.tiny.cloud/docs/ui-components/urldialog/#urldialogmessaging
+         *
+         * For example:
+         * if (event.origin != "http://my-expected-domain.com")
+         * {
+         *    return; // do nothing
+         * }
+         */
+        if (event.origin != origin)
+        {
+            return; // do nothing
+        }
+
+        /*
+         *
+         * Remember: updating innerHTML (or manipulating the DOM in other ways) can be risky.
+         *
+         * Make sure you are santising any HTML strings to avoid scripts being executed on your own document.
+         *
+         * For this demo, I've used DOMPurify:
+         * https://github.com/cure53/DOMPurify
+         *
+         */
+
+        // set up the content variable
+        var content = '';
+
+        // did we get content in the event.data?
+        if (event.data.content == '')
+        {
+            // if there is no content, display a message
+            content = '<p class="has-text-danger">There is no content in TinyMCE.</p>';
+        }
+        else
+        {
+            // there is content from TinyMCE, let's add it to the preview
+            content = event.data.content;
+        }
+
+        // sanitize the content
+        document.getElementById('content-preview').innerHTML = DOMPurify.sanitize(content);
+
+        // remove the "hidden" class
+        document.getElementById('content-preview').classList.remove('is-hidden');
+    });
+
+
+    document.getElementById('dialog-message-config').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // send the name of the action (we make this up)
+        // "mceAction" must have a value, or Tiny will ignore it
+        // here we are sending "sayName" which is defined in the "onMessage" config of the URL Dialog
+        window.parent.postMessage({
+            mceAction: 'sayName',
+            data: {
+                name: document.getElementById('dialog-name').value
+            }
+        }, origin);
+    });
+</script>
+</body>
+</html>

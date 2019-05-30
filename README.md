@@ -1,7 +1,7 @@
 # TinyMCE 5 Example Plugin
 Developed by [Marty Friedel](https://www.martyfriedel.com)
 
-Last updated April 2019
+Last updated May 2019
 
 ## How to use
 Open **index.html** in a web browser and you're good to go. 
@@ -21,7 +21,7 @@ to get the build files, and update the JS file in the index.html file and you'll
 
 **custom-icons.svg** has two SVG icons that we can reference in the "helloworld" plugin.
 
-**plugins** contains the source code and minified code for the "helloworld" and "flags" plugins. The init code for TinyMCE is looking 
+**plugins** contains the source code and minified code for the "helloworld", "flags", "iframe-simple" and "iframe" plugins. The init code for TinyMCE is looking 
 for the .min.js version of the plugin. If you start tinkering, don't forget to either minify your plugin.js file, or 
 update the TinyMCE init to look for the un-minified file.
 
@@ -47,6 +47,17 @@ This will help you:
 1. Understand the configuration of the AutoCompleter
 2. Consider where your data needs to come from
 3. Insert your data in to the editor
+
+## The new URL Dialog Component and Window Messaging
+Take a read of [my article](https://www.martyfriedel.com/blog/tinymce-5-url-dialog-component-and-window-messaging) to see working examples of
+the URL Dialog UI Component in its bare bones form (the **iframe-simple** plugin) plus more advanced messaging between
+the iframe and TinyMCE (the **iframe** plugin).
+
+This will help you get started with:
+1. iframes in TinyMCE 5
+2. configuring your URL Dialog
+3. understanding how to send messages from your iframe to TinyMCE as a Command or via onMessage
+4. understand how to send messages from TinyMCE back to your iframe
 
 Don't forget to visit [Tiny's](https://www.tiny.cloud) website to read all of the documentation for TinyMCE. It will be 
 incredibly useful for you when you start writing your own Plugins.

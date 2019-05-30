@@ -3,6 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta charset="UTF-8">
+    <title>TinyMCE 5 Plugin Playground</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src='https://cloud.tinymce.com/5/tinymce.min.js'></script>
     <script>
         tinymce.init({
@@ -13,6 +16,8 @@
             external_plugins: {
                 'flags': '/plugins/flags/plugin.min.js',
                 'helloworld': '/plugins/helloworld/plugin.min.js',
+                'iframe': '/plugins/iframe/plugin.min.js',
+                'iframe-simple': '/plugins/iframe-simple/plugin.min.js'
             },
 
             menubar: 'insert help',
@@ -22,36 +27,53 @@
 
             height: 400,
 
-            toolbar: 'helloworld | code | help',
+            toolbar: 'helloworld | iframe-simple | iframe | code | help',
         });
     </script>
 </head>
 
 <body>
-<h1>TinyMCE 5 Plugin Playground</h1>
-<p>A working demo to help developers play with working examples of custom external plugins for TinyMCE 5.</p>
-<p>This includes:</p>
-<ul>
-    <li>
-        <strong>Hello World</strong> showing Dialog and Custom Icons (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-a-plugin-with-a-dialog-and-custom-icons" target="_blank">read the blog post</a>)
-    </li>
-    <li>
-        <strong>Flags</strong> demonstrating Autocompleter (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-an-autocomplete-plugin" target="_blank">read the blog post</a>)
-    </li>
-</ul>
-<p>To use the Flags plugin, type the trigger character '#' and start typing a country name - filter options will be shown when at least one character is typed.</p>
-<p>The Flags plugin requires browser support for Fetch - basically modern browsers (sorry, that means you IE users).</p>
-<form method="post">
-    <textarea id="mytextarea"></textarea>
-</form>
-<p>TinyMCE is made by
-    <a href="https://www.tiny.cloud/" target="_blank">Tiny</a>. This example is using the cloud-hosted testing version,
-    and you will get an API Key warning unless you register for your own API Key.</p>
-<p>You can use the included package.json to pull in TinyMCE 5 for local use. Just update the src of the script tag above to point to your local version.</p>
-<p>SVG path data from
-    <a href="https://icomoon.io/#icons-icomoon" target="_blank">Icomoon's Free library</a>
-    (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0)</a>
-</p>
-<p>Country and Flag data from <a href="https://restcountries.eu/" target="_blank">REST Countries</a>.</p>
+<div class="content">
+    <h1>TinyMCE 5 Plugin Playground</h1>
+    <p>A working demo to help developers play with working examples of custom external plugins for TinyMCE 5.</p>
+    <p>This includes the following plugins:</p>
+    <ul>
+        <li>
+            <strong>Hello World</strong> showing Dialog and Custom Icons (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-a-plugin-with-a-dialog-and-custom-icons" target="_blank">read the blog post</a>)
+            <span class="is-block is-size-7"><a href="https://github.com/martyf/tinymce-5-plugin-playground/blob/master/plugins/helloworld/plugin.js" target="_blank" class="button is-small is-primary">View Source Code</a></span>
+        </li>
+        <li>
+            <strong>Flags</strong> demonstrating Autocompleter (<a href="https://www.martyfriedel.com/blog/tinymce-5-creating-an-autocomplete-plugin" target="_blank">read the blog post</a>)
+            <span class="is-block is-size-7">To use the Flags plugin, type the trigger character '#' and start typing a country name - filter options will be shown when at least one character is typed.</span>
+            <span class="is-block is-size-7">For ease of development, the Flags plugin requires browser support for Fetch - basically modern browsers (sorry, that means you IE users). You could re-work these requests to use older technologies if you need.</span>
+            <span class="is-block is-size-7"><a href="https://github.com/martyf/tinymce-5-plugin-playground/blob/master/plugins/flags/plugin.js" target="_blank" class="button is-small is-primary">View Source Code</a></span>
+        </li>
+        <li>
+            <strong>iframe-simple</strong> demonstrating a simple URL Dialog Component (<a href="https://www.martyfriedel.com/blog/tinymce-5-url-dialog-component-and-window-messaging" target="_blank">read the blog post</a>)
+            <span class="is-block is-size-7">This is great for looking at a basic simple example of setting up the URL Dialog UI Component.</span>
+            <span class="is-block is-size-7"><a href="https://github.com/martyf/tinymce-5-plugin-playground/blob/master/plugins/iframe-simple/plugin.js" target="_blank" class="button is-small is-primary">View Source Code</a></span>
+        </li>
+        <li>
+            <strong>iframe</strong> demonstrating the URL Dialog UI Component and Window Messaging (<a href="https://www.martyfriedel.com/blog/tinymce-5-url-dialog-component-and-window-messaging" target="_blank">read the blog post</a>)
+            <span class="is-block is-size-7">This is great for getting in to some more advanced concepts including two way messaging (and different ways to accomplish this).</span>
+            <span class="is-block is-size-7"><a href="https://github.com/martyf/tinymce-5-plugin-playground/blob/master/plugins/iframe/plugin.js" target="_blank" class="button is-small is-primary">View Source Code</a></span>
+        </li>
+    </ul>
+    <form method="post">
+        <textarea id="mytextarea"></textarea>
+    </form>
+    <p class="is-size-7">TinyMCE is made by
+        <a href="https://www.tiny.cloud/" target="_blank">Tiny</a>. This example is using the cloud-hosted testing version,
+        and you will get an API Key warning unless you register for your own API Key.</p>
+    <p class="is-size-7">You can use the included package.json to pull in TinyMCE 5 for local use. Just update the src of the script tag above to point to your local version.</p>
+    <p class="is-size-7">SVG path data from
+        <a href="https://icomoon.io/#icons-icomoon" target="_blank">Icomoon's Free library</a>
+        (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0)</a>
+    </p>
+    <p class="is-size-7">Country and Flag data from
+        <a href="https://restcountries.eu/" target="_blank">REST Countries</a>.</p>
+    <p class="is-size-7">Styling using the standard CDN build of <a href="https://bulma.io/" target="_blank">Bulma</a>.
+    </p>
+</div>
 </body>
 </html>
