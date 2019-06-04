@@ -3,6 +3,8 @@ Developed by [Marty Friedel](https://www.martyfriedel.com)
 
 Last updated May 2019
 
+Live demo: https://tinymce.martyfriedel.com/
+
 ## How to use
 Open **index.html** in a web browser and you're good to go. 
 
