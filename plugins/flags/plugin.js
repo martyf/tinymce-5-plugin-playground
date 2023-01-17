@@ -11,7 +11,7 @@
                 fetch: function (pattern) {
                     return new tinymce.util.Promise(function (resolve) {
                         // call the countries REST endpoint to look up the query, and return the name and flag
-                        fetch('https://restcountries.eu/rest/v2/name/' + pattern + '?fields=name;flag')
+                        fetch('https://restcountries.com/v2/name/' + pattern + '?fields=name,flag')
                             .then((resp) => resp.json()) // convert response to json
                             .then(function (data) {
                                 let results = [];
